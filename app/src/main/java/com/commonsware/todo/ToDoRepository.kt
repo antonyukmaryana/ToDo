@@ -3,7 +3,7 @@ package com.commonsware.todo
 object ToDoRepository {
     val items = listOf(
         ToDoModel(
-            description = "3 hours of leet code",
+            description = "3 hours of leetcode",
             isCompleted = true,
             notes = "See https://leetcode.com/problemset/all/"
         ),
@@ -12,7 +12,7 @@ object ToDoRepository {
         ),
         ToDoModel(
             description = "Job search",
-            notes = "https://www.linkedin.com/jobs/"
+            notes = "See https://www.linkedin.com/jobs/"
         )
     )
 }

@@ -1,16 +1,18 @@
 package com.commonsware.todo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import android.content.Intent
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.todo_roster.*
+import kotlinx.android.synthetic.main.todo_roster.view.*
 
 
 class RosterListFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,5 +32,18 @@ class RosterListFragment : Fragment() {
             }
             true
         }
+        val adapter = RosterAdapter(layoutInflater)
+        view.items.apply {
+            setAdapter(adapter)
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(
+                DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+        }
+        adapter.submitList(ToDoRepository.items)
+        empty.visibility = View.GONE
     }
 }
