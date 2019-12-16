@@ -4,6 +4,9 @@
         <variable
             name="model"
             type="com.commonsware.todo.ToDoModel"/>
+        <variable
+            name="holder"
+            type="com.commonsware.todo.RosterRowHolder"/>
     </data>
 
  <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,21 +15,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="@{model.description}"
-        android:checked="@{model.completed}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+     <CheckBox
+         android:id="@+id/desc"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="8dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginStart="8dp"
+         android:layout_marginTop="8dp"
+         android:checked="@{model.completed}"
+         android:ellipsize="end"
+         android:maxLines="3"
+         android:onCheckedChanged="@{(cb, isChecked) -> holder.onRowClick.invoke(model)}"
+         android:text="@{model.description}"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

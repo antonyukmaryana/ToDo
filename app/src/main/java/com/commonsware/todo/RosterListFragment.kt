@@ -32,7 +32,10 @@ class RosterListFragment : Fragment() {
             }
             true
         }
-        val adapter = RosterAdapter(layoutInflater)
+        val adapter = RosterAdapter(layoutInflater) { model ->
+            ToDoRepository.save(model.copy(isCompleted = !model.isCompleted))
+        }
+
         view.items.apply {
             setAdapter(adapter)
             layoutManager = LinearLayoutManager(context)

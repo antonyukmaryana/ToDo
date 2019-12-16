@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.commonsware.todo.databinding.TodoRowBinding
 
-class RosterAdapter(private val inflater: LayoutInflater) : ListAdapter<ToDoModel,
-        RosterRowHolder>(DiffCallback) {
+class RosterAdapter(
+    private val inflater: LayoutInflater,
+    private val onRowClick: (ToDoModel)-> Unit
+) : ListAdapter<ToDoModel, RosterRowHolder>(DiffCallback) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = RosterRowHolder(TodoRowBinding.inflate(inflater, parent, false))
+    ) =
+        RosterRowHolder(TodoRowBinding.inflate(inflater, parent, false), onRowClick)
 
     override fun onBindViewHolder(holder: RosterRowHolder, position: Int) {
     holder.bind(getItem(position))
