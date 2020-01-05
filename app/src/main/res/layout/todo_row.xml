@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="model"
@@ -10,12 +12,26 @@
     </data>
 
  <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     android: onClickListener="@{(v) -> holder.onRowClick.invoke">
 
      <CheckBox
+         android:id="@+id/checkbox"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+         android:layout_marginTop="8dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginBottom="8dp"
+         android:checked="@{model.completed}"
+         android:onCheckedChanged="@{(cb, isChecked) -> holder.onRowClick.invoke(model)}"
+         android:text="@{model.description}"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+
+     <TextView
          android:id="@+id/desc"
          android:layout_width="0dp"
          android:layout_height="wrap_content"
@@ -23,14 +39,12 @@
          android:layout_marginEnd="8dp"
          android:layout_marginStart="8dp"
          android:layout_marginTop="8dp"
-         android:checked="@{model.completed}"
          android:ellipsize="end"
          android:maxLines="3"
-         android:onCheckedChanged="@{(cb, isChecked) -> holder.onRowClick.invoke(model)}"
          android:text="@{model.description}"
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintStart_toEndOf="@+id/checkbox"
          app:layout_constraintTop_toTopOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -22,19 +22,12 @@ class RosterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.title = getString(R.string.app_name)
-        toolbar.inflateMenu(R.menu.actions)
 
-        toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.about -> startActivity(Intent(activity, AboutActivity::class.java))
-                else -> return@setOnMenuItemClickListener false
-            }
-            true
-        }
-        val adapter = RosterAdapter(layoutInflater) { model ->
-            ToDoRepository.save(model.copy(isCompleted = !model.isCompleted))
-        }
+
+        val adapter = RosterAdapter(
+            inflater = layoutInflater, onCheckboxToggle = { model ->
+                ToDoRepository.save(model.copy(isCompleted = !model.isCompleted)) },
+            onRowClick = { })
 
         view.items.apply {
             setAdapter(adapter)

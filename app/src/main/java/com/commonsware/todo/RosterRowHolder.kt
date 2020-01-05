@@ -5,6 +5,7 @@ import com.commonsware.todo.databinding.TodoRowBinding
 
 class RosterRowHolder(
     private val binding: TodoRowBinding,
+    val onCheckboxToggle: (ToDoModel) -> Unit,
     val onRowClick: (ToDoModel) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
