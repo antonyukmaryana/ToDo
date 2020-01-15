@@ -1,6 +1,5 @@
 package com.commonsware.todo
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,11 +23,13 @@ class RosterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         val adapter = RosterAdapter(
             inflater = layoutInflater, onCheckboxToggle = { model ->
-                ToDoRepository.save(model.copy(isCompleted = !model.isCompleted)) },
-            onRowClick = { })
+                ToDoRepository.save(model.copy(isCompleted = !model.isCompleted))
+            },
+            onRowClick = { model ->
+                display(model)
+            })
 
         view.items.apply {
             setAdapter(adapter)
@@ -43,6 +44,7 @@ class RosterListFragment : Fragment() {
         adapter.submitList(ToDoRepository.items)
         empty.visibility = View.GONE
     }
+
     private fun display(model: ToDoModel) {
         findNavController(view!!).navigate(RosterListFragmentDirections.displayModel(model.id))
     }
