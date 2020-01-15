@@ -5,4 +5,7 @@
     <string name="is_completed">Item is completed</string>
     <string name="created_on">Created On</string>
     <string name="menu_edit">Edit</string>
+    <string name="desc">Description</string>
+    <string name="notes">Notes</string>
+    <string name="desc">Description</string>
 </resources>
