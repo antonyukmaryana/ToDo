@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.todo_roster.*
@@ -41,5 +42,8 @@ class RosterListFragment : Fragment() {
         }
         adapter.submitList(ToDoRepository.items)
         empty.visibility = View.GONE
+    }
+    private fun display(model: ToDoModel) {
+        findNavController(view!!).navigate(RosterListFragmentDirections.displayModel(model.id))
     }
 }
