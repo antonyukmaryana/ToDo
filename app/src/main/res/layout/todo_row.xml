@@ -6,11 +6,11 @@
 
         <variable
             name="model"
-            type="com.commonsware.todo.ToDoModel" />
+            type="com.commonsware.todo.repo.ToDoModel" />
 
         <variable
             name="holder"
-            type="com.commonsware.todo.RosterRowHolder" />
+            type="com.commonsware.todo.ui.roster.RosterRowHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

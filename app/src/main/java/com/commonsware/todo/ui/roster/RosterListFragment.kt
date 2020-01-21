@@ -1,4 +1,4 @@
-package com.commonsware.todo
+package com.commonsware.todo.ui.roster
 
 import android.os.Bundle
 import android.view.*
@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.commonsware.todo.R
+import com.commonsware.todo.repo.ToDoModel
+import com.commonsware.todo.repo.ToDoRepository
 import kotlinx.android.synthetic.main.todo_roster.*
 import kotlinx.android.synthetic.main.todo_roster.view.*
 import org.koin.android.ext.android.inject
@@ -28,11 +31,11 @@ class RosterListFragment : Fragment() {
 
         val adapter =
             RosterAdapter(
-            inflater = layoutInflater,
+                inflater = layoutInflater,
                 onCheckboxToggle = { model ->
-                repo.save(model.copy(isCompleted = !model.isCompleted))
-            },
-            onRowClick = { model -> display(model) })
+                    repo.save(model.copy(isCompleted = !model.isCompleted))
+                },
+                onRowClick = { model -> display(model) })
 
         view.items.apply {
             setAdapter(adapter)
@@ -61,7 +64,11 @@ class RosterListFragment : Fragment() {
     }
 
     private fun display(model: ToDoModel) {
-        findNavController().navigate(RosterListFragmentDirections.displayModel(model.id))
+        findNavController().navigate(
+            RosterListFragmentDirections.displayModel(
+                model.id
+            )
+        )
     }
     private fun add() {
         findNavController().navigate(RosterListFragmentDirections.createModel())

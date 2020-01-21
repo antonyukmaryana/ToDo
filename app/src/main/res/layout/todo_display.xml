@@ -5,7 +5,7 @@
     <data>
     <variable
         name="model"
-        type="com.commonsware.todo.ToDoModel" />
+        type="com.commonsware.todo.repo.ToDoModel" />
 
         <import type="android.view.View"/>
     </data>

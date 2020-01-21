@@ -1,12 +1,14 @@
 
-package com.commonsware.todo
+package com.commonsware.todo.ui.display
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.commonsware.todo.R
 import com.commonsware.todo.databinding.TodoDisplayBinding
+import com.commonsware.todo.repo.ToDoRepository
 import org.koin.android.ext.android.inject
 
 class DisplayFragment : Fragment() {
@@ -47,7 +49,11 @@ class DisplayFragment : Fragment() {
     }
 
     private fun edit() {
-        findNavController().navigate(DisplayFragmentDirections.editModel(args.modelId))
+        findNavController().navigate(
+            DisplayFragmentDirections.editModel(
+                args.modelId
+            )
+        )
     }
 }
 

@@ -1,4 +1,4 @@
-package com.commonsware.todo
+package com.commonsware.todo.ui.util
 
 
 import android.text.format.DateUtils

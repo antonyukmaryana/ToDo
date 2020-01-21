@@ -1,6 +1,7 @@
 package com.commonsware.todo
 
 import android.app.Application
+import com.commonsware.todo.repo.ToDoRepository
 import org.koin.dsl.module.module
 import org.koin.android.ext.android.startKoin
 

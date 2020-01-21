@@ -1,7 +1,8 @@
-package com.commonsware.todo
+package com.commonsware.todo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.commonsware.todo.R
 import kotlinx.android.synthetic.main.activity_about.*
 
 class AboutActivity : AppCompatActivity() {
