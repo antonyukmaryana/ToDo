@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.commonsware.todo.databinding.TodoDisplayBinding
+import org.koin.android.ext.android.inject
 
 class DisplayFragment : Fragment() {
+    private val repo: ToDoRepository by inject()
     private val args: DisplayFragmentArgs by navArgs()
     private lateinit var binding: TodoDisplayBinding
 
@@ -27,7 +29,7 @@ class DisplayFragment : Fragment() {
         .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.model = ToDoRepository.find(args.modelId)
+        binding.model = repo.find(args.modelId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

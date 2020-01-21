@@ -1,4 +1,5 @@
 package com.commonsware.todo
+
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -7,8 +8,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.todo_roster.*
 import kotlinx.android.synthetic.main.todo_roster.view.*
+import org.koin.android.ext.android.inject
 
 class RosterListFragment : Fragment() {
+    private val repo: ToDoRepository by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -22,9 +26,11 @@ class RosterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = RosterAdapter(
-            inflater = layoutInflater, onCheckboxToggle = { model ->
-                ToDoRepository.save(model.copy(isCompleted = !model.isCompleted))
+        val adapter =
+            RosterAdapter(
+            inflater = layoutInflater,
+                onCheckboxToggle = { model ->
+                repo.save(model.copy(isCompleted = !model.isCompleted))
             },
             onRowClick = { model -> display(model) })
 
@@ -39,8 +45,8 @@ class RosterListFragment : Fragment() {
                 )
             )
         }
-        adapter.submitList(ToDoRepository.items)
-        empty.visibility = if (ToDoRepository.items.isEmpty()) View.VISIBLE else View.GONE }
+        adapter.submitList(repo.items)
+        empty.visibility = if (repo.items.isEmpty()) View.VISIBLE else View.GONE }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.actions_roster, menu)
@@ -60,4 +66,5 @@ class RosterListFragment : Fragment() {
     private fun add() {
         findNavController().navigate(RosterListFragmentDirections.createModel())
     }
+
 }

@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.commonsware.todo.databinding.TodoEditBinding
+import org.koin.android.ext.android.inject
 
 class EditFragment : Fragment() {
+    private val repo: ToDoRepository by inject()
     private lateinit var binding: TodoEditBinding
     private val args: EditFragmentArgs by navArgs()
 
@@ -27,7 +29,7 @@ class EditFragment : Fragment() {
         .apply { binding = this }
         .root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) { binding.model = ToDoRepository.find(args.modelId)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) { binding.model = repo.find(args.modelId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -57,11 +59,11 @@ class EditFragment : Fragment() {
                 isCompleted = binding.isCompleted.isChecked,
                 notes = binding.notes.text.toString()
             ) }
-        edited?.let { ToDoRepository.save(it) }
+        edited?.let { repo.save(it) }
         navToDisplay()
     }
     private fun delete() {
-        binding.model?.let { ToDoRepository.delete(it) }
+        binding.model?.let { repo.delete(it) }
         navToList()
     }
     private fun navToDisplay() { hideKeyboard()
