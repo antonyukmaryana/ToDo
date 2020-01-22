@@ -30,4 +30,19 @@
         android:icon="@drawable/ic_add_black_24dp"
         android:title="@string/menu_add"
         app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_save_black_24dp"
+        android:title="@string/menu_save"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:title="@string/menu_share"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/importItems"
+        android:icon="@drawable/ic_file_download_black_24dp"
+        android:title="@string/menu_import"
+        app:showAsAction="never" />
 </menu>

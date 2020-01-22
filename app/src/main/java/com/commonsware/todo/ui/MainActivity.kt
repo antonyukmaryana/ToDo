@@ -26,19 +26,25 @@ class MainActivity : AppCompatActivity() {
       setupActionBarWithNavController(nav, appBarConfiguration)
     }
   }
+
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.actions, menu)
 
     return super.onCreateOptionsMenu(menu)
   }
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (item.itemId == R.id.about) {
-    startActivity(Intent(this, AboutActivity::class.java))
-    return true
+
+  override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+    R.id.about -> {
+      startActivity(Intent(this, AboutActivity::class.java))
+      true
+    }
+    R.id.settings -> {
+      findNavController(R.id.nav_host).navigate(R.id.editPrefs)
+      true
+    }
+    else -> super.onOptionsItemSelected(item)
   }
 
-    return super.onOptionsItemSelected(item)
-  }
   override fun onSupportNavigateUp() =
     navigateUp(findNavController(R.id.nav_host), appBarConfiguration)
 }

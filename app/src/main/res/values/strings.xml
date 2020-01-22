@@ -15,4 +15,19 @@
     <string name="menu_filter_all">All</string>
     <string name="menu_filter_completed">Completed</string>
     <string name="menu_filter_outstanding">Outstanding</string>
+    <string name="report_template"><![CDATA[<h1>To-Do Items</h1>
+{{#this}}
+<h2>{{description}}</h2>
+<p>{{#isCompleted}}<b>COMPLETED</b> &mdash; {{/isCompleted}}Created on: {{dateFormat createdOn}}</p>
+<p>{{notes}}</p>
+{{/this}}
+]]></string>
+    <string name="msg_saved">Your Web page is saved!</string>
+    <string name="menu_share">Share</string>
+    <string name="msg_share_fail">Nothing knows how to share a Web page!</string>
+    <string name="pref_url_title">Web service URL</string>
+    <string name="settings">Settings</string>
+    <string name="web_service_url_key">webServiceUrl</string>
+    <string name="web_service_url_default">https://commonsware.com/AndExplore/items.json</string>
+    <string name="menu_import">Import</string>
 </resources>

@@ -5,8 +5,7 @@ import androidx.lifecycle.Transformations
 
 enum class FilterMode { ALL, OUTSTANDING, COMPLETED }
 
-class ToDoRepository(private val store: ToDoEntity.Store) {
-
+class ToDoRepository(private val store: ToDoEntity.Store, private val remoteDataSource: ToDoRemoteDataSource) {
     fun items(filterMode: FilterMode = FilterMode.ALL): LiveData<List<ToDoModel>> =
         Transformations.map(filteredEntities(filterMode)) { all -> all.map { it.toModel() } }
 
@@ -16,9 +15,15 @@ class ToDoRepository(private val store: ToDoEntity.Store) {
     suspend fun save(model: ToDoModel) {
         store.save(ToDoEntity(model))
     }
+
     suspend fun delete(model: ToDoModel) {
         store.delete(ToDoEntity(model))
     }
+
+    suspend fun importItems(url: String) {
+        store.importItems(remoteDataSource.load(url).map { it.toEntity() })
+    }
+
     private fun filteredEntities(filterMode: FilterMode) = when (filterMode) {
         FilterMode.ALL -> store.all()
         FilterMode.OUTSTANDING -> store.filtered(isCompleted = false)

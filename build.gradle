@@ -20,7 +20,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-
     }
 }
 
@@ -30,5 +29,6 @@ task clean(type: Delete) {
 
 ext {
     koin_version = "1.0.2"
+    moshi_version = "1.8.0"
     room_version = "2.1.0-alpha04"
 }

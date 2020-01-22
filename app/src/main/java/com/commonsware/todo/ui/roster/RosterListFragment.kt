@@ -1,7 +1,12 @@
 package com.commonsware.todo.ui.roster
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -10,9 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.commonsware.todo.R
 import com.commonsware.todo.repo.FilterMode
 import com.commonsware.todo.repo.ToDoModel
+import com.commonsware.todo.ui.util.EventObserver
 import kotlinx.android.synthetic.main.todo_roster.*
 import kotlinx.android.synthetic.main.todo_roster.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+
+private const val REQUEST_SAVE = 1337
 
 class RosterListFragment : Fragment() {
     private val motor: RosterMotor by viewModel()
@@ -71,6 +80,13 @@ class RosterListFragment : Fragment() {
             loading.visibility = View.GONE
             menuMap[state.filterMode]?.isChecked = true
         })
+
+        motor.navEvents.observe(this, EventObserver { nav ->
+            when (nav) {
+                is Nav.ViewReport -> viewReport(nav.doc)
+                is Nav.ShareReport -> shareReport(nav.doc)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -108,9 +124,33 @@ class RosterListFragment : Fragment() {
                 motor.load(FilterMode.OUTSTANDING)
                 return true
             }
+            R.id.save -> {
+                saveReport()
+                return true
+            }
+            R.id.share -> {
+                motor.shareReport()
+                return true
+            }
+            R.id.importItems -> {
+                motor.importItems()
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        if (requestCode == REQUEST_SAVE) {
+            if (resultCode == Activity.RESULT_OK) {
+                data?.data?.let { motor.saveReport(it) }
+            }
+        }
     }
 
     private fun display(model: ToDoModel) {
@@ -123,5 +163,38 @@ class RosterListFragment : Fragment() {
 
     private fun add() {
         findNavController().navigate(RosterListFragmentDirections.createModel())
+    }
+
+    private fun saveReport() {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType("text/html")
+
+        startActivityForResult(intent, REQUEST_SAVE)
+    }
+
+    private fun viewReport(uri: Uri) {
+        val i = Intent(Intent.ACTION_VIEW, uri)
+            .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+        try {
+            startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(activity, R.string.msg_saved, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun shareReport(doc: Uri) {
+        val i = Intent(Intent.ACTION_SEND)
+            .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            .setType("text/html")
+            .putExtra(Intent.EXTRA_STREAM, doc)
+
+        try {
+            startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(activity, R.string.msg_share_fail, Toast.LENGTH_LONG)
+                .show()
+        }
     }
 }
