@@ -1,4 +1,3 @@
-
 package com.commonsware.todo.ui.display
 
 import android.os.Bundle
@@ -12,9 +11,9 @@ import com.commonsware.todo.repo.ToDoRepository
 import org.koin.android.ext.android.inject
 
 class DisplayFragment : Fragment() {
-    private val repo: ToDoRepository by inject()
     private val args: DisplayFragmentArgs by navArgs()
     private lateinit var binding: TodoDisplayBinding
+    private val repo: ToDoRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,4 +55,3 @@ class DisplayFragment : Fragment() {
         )
     }
 }
-
