@@ -9,14 +9,14 @@ class ToDoRepository {
     MutableLiveData<List<ToDoModel>>().apply { value = listOf() }
     val items: LiveData<List<ToDoModel>> = _items
 
-    fun save(model: ToDoModel) {
+    suspend fun save(model: ToDoModel) {
         _items.value = if (current().any { it.id == model.id }) {
             current().map { if (it.id == model.id) model else it }
         } else {
             current() + model
         }
     }
-    fun delete(model: ToDoModel) {
+    suspend fun delete(model: ToDoModel) {
         _items.value = current().filter { it.id != model.id }
     }
 
