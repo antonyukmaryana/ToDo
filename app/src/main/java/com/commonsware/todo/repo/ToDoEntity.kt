@@ -33,10 +33,13 @@ data class ToDoEntity(
 
     @Dao
     interface Store {
-        @Query("SELECT * FROM todos")
+        @Query("SELECT * FROM todos ORDER BY description")
         fun all(): LiveData<List<ToDoEntity>>
 
-        @Query("SELECT * FROM todos WHERE id = :modelId")
+        @Query("SELECT * FROM todos WHERE isCompleted = :isCompleted ORDER BY description")
+        fun filtered(isCompleted: Boolean): LiveData<List<ToDoEntity>>
+
+        @Query("SELECT * FROM todos WHERE id = :modelId ORDER BY description")
         fun find(modelId: String): LiveData<ToDoEntity>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
