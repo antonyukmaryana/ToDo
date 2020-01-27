@@ -1,14 +1,12 @@
 # 🎓📒💻Job Hunter's Daily Planner
  mobile app that allows users to create, edit, save and delete items. Filter list items based on status ("all", "completed", "outstanding"). Save, share todo items as a report. Adjust "Settings".
-# _Pollinator_Mobile_Version_
+# _Job Hunter's Daily PLanner_
 
 #### _A mobile application that allows user to make job hunting process more organized and structured. Created 01/24/2020_
 
 #### By _**Maryana Antonyuk**_
 
 ## Description
-
-![Screenshot](diagram.png)
 ## Specifications (some features are in working progress)
 
 * The application CRUD functionality.
